@@ -1,0 +1,9 @@
+MN = dlmread('data/training_set_n.txt');
+MS = dlmread('data/training_set_s.txt');
+MT = dlmread('data/test_set.txt');
+LT = [1 1 0 0 1 0 0 1 1 0 1 0 0 1 1 1 1     1     1     0     1     0     1     0     1     1     1     1     0     1     1     1
+
+fake_labels = [zeros(1, 1); ones(99, 1)];
+test_labels = classificationKey(fake_labels);
+
+[nl_a, nl_b] = nonlinearsvm(MN, MS);

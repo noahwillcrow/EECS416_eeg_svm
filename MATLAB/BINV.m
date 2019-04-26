@@ -1,3 +1,5 @@
+%from canvas
+
 function Bnew=BINV(Binv,a,q)
 m=length(a);ahat=Binv*a;
 if ahat(q)<=0

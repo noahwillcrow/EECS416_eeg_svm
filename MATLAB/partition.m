@@ -1,3 +1,5 @@
+%from canvas
+
 function [cb,cn,N,B]=partition(A,c,BV,NBV,V)
 nb=length(BV);nnb=length(NBV);
 for i=1:nb

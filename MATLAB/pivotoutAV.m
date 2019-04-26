@@ -1,3 +1,5 @@
+%from canvas
+
 function [BV,NBV,Bi,A,b,c,V]=pivotoutAV(A1,b1,c1,Bi,BV,NBV,AV,V)
 
 A=A1;b=b1;c=c1;BV=BV;NBV=NBV;

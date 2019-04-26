@@ -1,3 +1,5 @@
+%from canvas
+
 function [BV,NBV,Bi,A,b,c,V]=phase1(A1,b1,c1,BV0,NBV0,AV,V)
 
 [m,n]=size(A1);BV=BV0;NBV=NBV0;

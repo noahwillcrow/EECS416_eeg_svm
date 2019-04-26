@@ -1,3 +1,5 @@
+%from canvas
+
 function [i_neg,i_in]=Bland(A,Bi,rcv,NBV,V)
 nnbv=length(rcv);i=1;
 while i<=nnbv

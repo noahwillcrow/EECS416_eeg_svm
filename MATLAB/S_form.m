@@ -1,3 +1,5 @@
+%from canvas
+
 function [A,b,c,BV0,NBV0,AV]=S_form(A0,b0,c0,o_sign,c_GE,c_E,v_neg,v_free)
 [m,n0]=size(A0);
 n_GE=length(c_GE);n_E=length(c_E);n_neg=length(v_neg);n_free=length(v_free);

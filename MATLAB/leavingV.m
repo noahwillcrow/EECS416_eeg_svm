@@ -1,3 +1,5 @@
+%from canvas
+
 function q=leavingV(Bi,A,b,p,V)
 m=length(b);minratio=1e6;
 bhat=Bi*b;

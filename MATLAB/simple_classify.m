@@ -1,4 +1,4 @@
-function predicted_labels = simple_classify(avg_0,avg_1,ts)
+function predicted_labels = simple_classify(ts, avg_0,avg_1)
     predicted_labels=zeros(length(ts),1);
         for i=1:length(ts)
             if norm(ts(i,:) - avg_1) < norm(ts(i,:) - avg_0)

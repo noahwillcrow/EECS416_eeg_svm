@@ -1,4 +1,7 @@
-function [a, b]=nonlinearsvm(X, Y)
+function [m, b]=nonlinearsvm(tr0, tr1)
+    X = tr1;
+    Y = tr0;
+
     nf = size(X, 2);
     nx = size(X, 1);
     ny = size(Y, 1);
@@ -15,6 +18,6 @@ function [a, b]=nonlinearsvm(X, Y)
     objFun = @(x) (1/2)* x' * Q * x + q' * x;
 
     [z, ~] = fmincon(objFun, zeros(n, 1), A, b, [], [], lowerbound, []);
-    a = z(1:nf);
+    m = z(1:nf);
     b = z(nf + 1);
 end

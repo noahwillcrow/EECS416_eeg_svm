@@ -1,5 +1,5 @@
-SEIZURE_SET = dlmread('../data/training_set_s.txt')';
-NON_SEIZURE_SET = dlmread('../data/training_set_n.txt')';
+SEIZURE_SET = dlmread('../data/training_set_s.txt')'; % Label = 1
+NON_SEIZURE_SET = dlmread('../data/training_set_n.txt')'; % Label = 0
 TEST_SET = dlmread('../data/test_set.txt')';
 TEST_LABELS = [1 1 0 0 1 0 0 1 1 0 1 0 0 1 1 1 1 1 1 0 1 0 1 0 1 1 1 1 0 1 1 1 0 1 0 0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 0 1 0 0 1 1 0 1 0 0 1 1 1 1 1 0 0 1 0 1 0 0 0 1 1 1 0 0 1 1 1 1 0 0 0 0 1 0 0 0 1 1 1 0 0 0 0 1 0 0]';
 

@@ -1,6 +1,6 @@
-function accuracies = run_cv(folds0, folds1, trainingfun, testfun)
+function results = run_cv(folds0, folds1, trainingfun, testfun)
     numfolds = int32(5);
-    accuracies = zeros(numfolds, 1);
+    results = zeros(numfolds, 2, 2);
     
     for i=1:numfolds
         training0 = [];
@@ -19,17 +19,9 @@ function accuracies = run_cv(folds0, folds1, trainingfun, testfun)
         
         [a,b] = trainingfun(training0, training1);
         predicted_labels = testfun([testing0; testing1], a, b);
+        true_labels = [zeros(1,length(testing0)), ones(1,length(testing1))];
         
-        num_correct = 0;
-        for j=1:length(predicted_labels)
-            if j > length(testing1) && predicted_labels(j) == 1
-                num_correct = num_correct+1;
-            elseif j <= length(testing1) && predicted_labels(j) == 0
-                num_correct = num_correct+1;
-            end
-        end
-        
-        accuracies(i) = num_correct/(length(testing0) + length(testing1));
+        results(i,:,:)= confusionmat(true_labels, predicted_labels);
     end
    
     

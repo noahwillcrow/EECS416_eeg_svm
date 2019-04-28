@@ -1,21 +1,22 @@
 function [m, b]=linearsvm(tr0, tr1)
-    nf = size(tr0, 2);
-    combined_data = [tr0; tr1];
+    X = tr1;
+    Y = tr0;
     
-    lp_A = [combined_data, -combined_data, ones(length(combined_data), 1)];
-    lp_b = [-ones(length(tr0), 1); ones(length(tr1), 1)];
-    lp_c = ones(2*nf + 1, 1);
+    nf = size(X, 2);
+    nx = size(X, 1);
+    ny = size(Y, 1);
+    n = nf + 1 + nx + ny;
+    Q = zeros(n, n);
+    Q(1:nf, 1:nf) = eye(nf);
+    Tau = 1000;
+    q = [zeros(nf + 1, 1); Tau * ones(nx + ny, 1)];
+    A = [-X   ones(nx, 1)      -eye(nx)        zeros(nx, ny);
+         Y    -ones(ny, 1)     zeros(ny, nx)   -eye(ny)];
+    b = -ones(nx + ny, 1);
+    L = [-inf * ones(nf + 1, 1); zeros(nx + ny, 1)];
+
+    [z, f] = quadprog(Q, q, A, b, [], [], L, [], []);
     
-    size_A = size(lp_A)
-    size_b = size(lp_b)
-    size_c = size(lp_c)
-    
-    ge_cons = (length(tr0) + 1):length(lp_b);
-    eq_cons = [];
-    neg_var = [];
-    free_var = [2*nf + 1];
-    [x, y, z, iters] = rsimplex(lp_A, lp_b, lp_c, 'min', ge_cons, eq_cons, neg_var, free_var);
-    
-    m = z(1:nf) - z(nf + 1:2*nf);
-    b = z(2*nf + 1);
+    m = z(1:nf);
+    b = z(nf + 1);
 end

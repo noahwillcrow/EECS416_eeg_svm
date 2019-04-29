@@ -17,6 +17,6 @@ function [folds0, folds1] = make_cv(tr0, tr1, ts, ts_labels)
     
     for i=1:numfolds
         folds0(:,:,i) = tr0((i-1)*foldsize0+1:i*foldsize0,:);
-        folds1(:,:,i) = tr1((i-1)*foldsize0+1:i*foldsize0,:);
+        folds1(:,:,i) = tr1((i-1)*foldsize1+1:i*foldsize0,:);
     end
 end

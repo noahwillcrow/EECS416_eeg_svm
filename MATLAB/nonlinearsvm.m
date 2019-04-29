@@ -15,7 +15,7 @@ function [m, b]=nonlinearsvm(tr0, tr1)
     b = -ones(nx + ny, 1);
     lowerbound = [-inf * ones(nf + 1, 1); zeros(nx + ny, 1)];
     
-    objFun = @(x) (1/2)* x' * Q * x + q' * x;
+    objFun = @(x) ((1/2)* x' * Q * x + q' * x)^2;
 
     [z, ~] = fmincon(objFun, zeros(n, 1), A, b, [], [], lowerbound, []);
     m = z(1:nf);

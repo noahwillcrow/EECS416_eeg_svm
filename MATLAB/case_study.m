@@ -1,7 +1,7 @@
-NON_SEIZURE_SET = dlmread('/data/training_set_n.txt')'; % Label = 0
-SEIZURE_SET = dlmread('/data/training_set_s.txt')'; % Label = 1
-TEST_SET = dlmread('/data/test_set.txt')';
-TEST_LABELS = dlmread('/data/test_labels.txt')';
+NON_SEIZURE_SET = dlmread('../data/training_set_n.txt')'; % Label = 0
+SEIZURE_SET = dlmread('../data/training_set_s.txt')'; % Label = 1
+TEST_SET = dlmread('../data/test_set.txt')';
+TEST_LABELS = dlmread('../data/test_labels.txt')';
 
 % Run all classifiers with 5-fold stratified crossvalidation
 [folds0, folds1] = make_cv(NON_SEIZURE_SET, SEIZURE_SET, TEST_SET, TEST_LABELS);
@@ -9,8 +9,8 @@ TEST_LABELS = dlmread('/data/test_labels.txt')';
 results_per_fold = zeros(3, 5, 2, 2);
 
 results_per_fold(1,:,:,:) = run_cv(folds0, folds1, @simple_train, @simple_classify);
-results_per_fold(2,:,:,:)  = run_cv(folds0, folds1, @linearsvm, @classify);
-results_per_fold(3,:,:,:)  = run_cv(folds0, folds1, @nonlinearsvm, @classify);
+results_per_fold(2,:,:,:)  = run_cv(folds0, folds1, @linearsvm, @linear_classify);
+results_per_fold(3,:,:,:)  = run_cv(folds0, folds1, @nonlinearsvm, @nonlinear_classify);
 
 cv_accuracies = zeros(3,5);
 cv_tp_rate = zeros(3,5);
@@ -47,11 +47,11 @@ simple_predicted_labels = simple_classify(TEST_SET, avg_0, avg_1);
 results(1,:,:) = confusionmat(TEST_LABELS, simple_predicted_labels');
 
 [linear_a, linear_b] = linearsvm(NON_SEIZURE_SET, SEIZURE_SET);
-linear_predicted_labels = classify(TEST_SET, linear_a, linear_b);
+linear_predicted_labels = linear_classify(TEST_SET, linear_a, linear_b);
 results(2,:,:)= confusionmat(TEST_LABELS, linear_predicted_labels');
 
 [nonlinear_a, nonlinear_b] = nonlinearsvm(NON_SEIZURE_SET, SEIZURE_SET);
-nonlinear_predicted_labels = classify(TEST_SET, nonlinear_a, nonlinear_b);
+nonlinear_predicted_labels = nonlinear_classify(TEST_SET, nonlinear_a, nonlinear_b);
 results(3,:,:)= confusionmat(TEST_LABELS, nonlinear_predicted_labels');
 
 accuracies = zeros(1,3);
